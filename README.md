@@ -1,56 +1,16 @@
-# ChaosLog: Industrial Incident Intelligence Hub
+# React + Vite
 
-ChaosLog is a specialized incident parsing engine designed for high-stress industrial environments. It transforms unstructured factory floor reports into structured, actionable intelligence.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Approach
+Currently, two official plugins are available:
 
-ChaosLog uses a **Hybrid Inference Strategy**:
-1.  **Local AI (Transformer Model)**: Uses `@xenova/transformers` to run a small, efficient model locally for intelligent classification and tagging.
-2.  **Heuristic Engine**: A deterministic keyword-based system that ensures 100% reliability for critical safety triggers (e.g., "fire", "smoke").
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-This dual-layer approach provides both the flexibility of machine learning and the predictability required for industrial safety.
+## React Compiler
 
-## Technologies
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
--   **Frontend**: React (Vite), TailwindCSS, Framer Motion, Recharts.
--   **Backend**: Node.js, Express, better-sqlite3.
--   **AI Engine**: Hugging Face Transformers.
+## Expanding the ESLint configuration
 
-## Getting Started
-
-### Prerequisites
--   Node.js (v18+)
-
-### Installation
-
-1.  **Clone the Repository**
-    ```bash
-    git clone https://github.com/viraat0700/Chao_Logs.git
-    cd Chao_Logs
-    ```
-
-2.  **Setup Server**
-    ```bash
-    cd server
-    npm install
-    npm run dev
-    ```
-
-3.  **Setup Client** (New Terminal)
-    ```bash
-    cd client
-    npm install
-    npm run dev
-    ```
-
-4.  **Access App**
-    Open `http://localhost:5173` in your browser.
-
-## Environment Variables (.env)
-
-Create a `.env` file in the `server` directory:
-
-```env
-PORT=3000
-DB_PATH=./chaoslog.db
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

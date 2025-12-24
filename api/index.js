@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
 app.use('/api', eventRoutes);
@@ -23,14 +23,14 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get(/(.*)/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 
-// if (process.env.NODE_ENV !== 'production') {
-app.listen(PORT, () => {
-    console.log(`🚀 ChaosLog Core online on port ${PORT}`);
-});
-// }
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 ChaosLog Core online on port ${PORT}`);
+    });
+}
 
 module.exports = app;
