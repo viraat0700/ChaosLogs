@@ -1,12 +1,3 @@
-/**
- * ChaosLog Classifier Engine
- * 
- * Analyzes unstructured text to derive:
- * 1. Category (Maintenance, Logistics, IT, etc.)
- * 2. Severity (Low, Medium, Critical)
- * 3. Tags (Key nouns/verbs extracted)
- */
-
 class Classifier {
     constructor() {
         this.categories = {
@@ -29,7 +20,7 @@ class Classifier {
         let detectedCategory = 'general';
         let maxScore = 0;
 
-        // Determine Category
+
         for (const [category, keywords] of Object.entries(this.categories)) {
             let score = 0;
             keywords.forEach(word => {
@@ -41,21 +32,20 @@ class Classifier {
             }
         }
 
-        // Determine Severity
-        let severity = 'low'; // Default
+
+        let severity = 'low';
         for (const [level, triggers] of Object.entries(this.severityTriggers)) {
-            // Check critical first, then medium (order in object definition doesn't guarantee iteration order, but logic below handles priority)
-            // Actually, let's explicit check
+
             if (level === 'critical' && triggers.some(t => lowerText.includes(t))) {
                 severity = 'critical';
-                break; // Stop if critical
+                break;
             }
             if (level === 'medium' && triggers.some(t => lowerText.includes(t))) {
                 severity = 'medium';
             }
         }
 
-        // Extract simple tags (words > 4 chars that are not common stopwords - simplified for this challenge)
+
         const words = lowerText.replace(/[^\w\s]/g, '').split(/\s+/);
         const tags = words.filter(w => w.length > 4 && !['about', 'after', 'again', 'below', 'could', 'every', 'first', 'found', 'great', 'house', 'large', 'learn', 'never', 'other', 'place', 'plant', 'point', 'right', 'small', 'sound', 'spell', 'still', 'study', 'their', 'there', 'these', 'thing', 'think', 'three', 'water', 'where', 'which', 'world', 'write', 'would', 'should'].includes(w)).slice(0, 3);
 

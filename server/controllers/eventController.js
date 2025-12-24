@@ -13,36 +13,35 @@ class EventController {
                 });
             }
 
-            // 1. Run Heuristic (Fast, Deterministic Severity/Tags)
+
             const heuristicResult = classifierService.analyze(text);
 
-            // 2. Run Local AI (Smart Category & Severity Context)
+
             const aiResult = await localAIService.analyze(text);
 
-            // 3. Merge Results
+
             let finalCategory = heuristicResult.category;
             let finalSeverity = heuristicResult.severity;
             let method = 'heuristic';
 
             if (aiResult) {
-                // Use AI Category if acceptable confidence
+
                 if (aiResult.categoryConfidence > 0.4) {
                     finalCategory = aiResult.category;
                     method = 'local-ai';
                 }
 
-                // Use AI Severity if it detects Critical with good confidence, OR if Heuristic missed it
-                // We trust AI for "contextual" criticality (like "dog biting") that keywords might miss
+
                 if (aiResult.severityConfidence > 0.5) {
                     finalSeverity = aiResult.severity;
-                    if (method === 'heuristic') method = 'hybrid'; // Mixed sources
+                    if (method === 'heuristic') method = 'hybrid';
                 }
             }
 
-            // Always use Heuristic for Tags (Extraction is better with regex/keywords)
+
             const finalTags = heuristicResult.tags;
 
-            // Store in database
+
             const eventId = EventModel.create(
                 text,
                 finalCategory,

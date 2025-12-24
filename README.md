@@ -1,67 +1,56 @@
-# ChaosLog: From Chaos to Clarity
+# ChaosLog: Industrial Incident Intelligence Hub
 
-**Maketronics Hiring Challenge Submission**
+ChaosLog is a specialized incident parsing engine designed for high-stress industrial environments. It transforms unstructured factory floor reports into structured, actionable intelligence.
 
-ChaosLog is an "Industrial Incident Intelligence Hub". It takes the messy, unstructured stream of operational reality—"motor overheating", "shipment delayed", "weird noise in sector 7"—and automatically structures it into actionable categories with severity assessments.
+## Approach
 
-## The "Self-Organizing" Concept
+ChaosLog uses a **Hybrid Inference Strategy**:
+1.  **Local AI (Transformer Model)**: Uses `@xenova/transformers` to run a small, efficient model locally for intelligent classification and tagging.
+2.  **Heuristic Engine**: A deterministic keyword-based system that ensures 100% reliability for critical safety triggers (e.g., "fire", "smoke").
 
-The core philosophy is **Deterministic Chaos Parsing**. Instead of relying on a black-box AI that might hallucinate, ChaosLog uses a `Keyword Density Heuristic` engine. It scans inputs for domain-specific triggers (e.g., "temperature", "failed", "blocked") to assign:
-1.  **Category**: Maintenance, Logistics, IT, Security, or General.
-2.  **Severity**: Low, Medium, Critical.
+This dual-layer approach provides both the flexibility of machine learning and the predictability required for industrial safety.
 
-This ensures that "Motor fire" is ALWAYS a Critical Maintenance issue, providing the reliability required for industrial systems.
+## Technologies
 
-## Project Architecture
+-   **Frontend**: React (Vite), TailwindCSS, Framer Motion, Recharts.
+-   **Backend**: Node.js, Express, better-sqlite3.
+-   **AI Engine**: Hugging Face Transformers.
 
-This project follows **industry-standard architectural patterns**:
-- **Backend**: MVC pattern with separate layers for models, services, controllers, and routes
-- **Frontend**: Component-based architecture with services and utilities
-
-See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for detailed structure documentation.
-
-## System Architecture
-
-### Tech Stack
-- **Frontend**: React (Vite) + TailwindCSS.
-    - *Design Choice*: "Dark Glass" aesthetic. High contrast for factory floor visibility.
-- **Backend**: Node.js + Express.
-    - *Design Choice*: Lightweight, event-driven architecture.
-- **Database**: SQLite.
-    - *Design Choice*: Zero-configuration, file-based persistence. Perfect for embedded/isolated environments or quick prototypes.
-
-### Project Structure
-- `/server`: API and Classification Logic.
-- `/client`: Dashboard UX.
-
-## How to Run Locally
+## Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
+-   Node.js (v18+)
 
-### Steps
-1.  **Clone & Install**:
+### Installation
+
+1.  **Clone the Repository**
     ```bash
-    git clone <repo>
-    cd maketronics_challenge
-    
-    # Install Server
-    cd server
-    npm install
-    
-    # Install Client
-    cd ../client
-    npm install
+    git clone https://github.com/viraat0700/Chao_Logs.git
+    cd Chao_Logs
     ```
 
-2.  **Start Development Mode**:
-    - Term 1 (Server): `cd server && npm run dev` (Runs on port 3000)
-    - Term 2 (Client): `cd client && npm run dev` (Runs on port 5173)
+2.  **Setup Server**
+    ```bash
+    cd server
+    npm install
+    npm run dev
+    ```
 
-3.  **Open Browser**:
-    Visist `http://localhost:5173`
+3.  **Setup Client** (New Terminal)
+    ```bash
+    cd client
+    npm install
+    npm run dev
+    ```
 
-## Trade-offs & Decisions
-1.  **SQLite vs Postgres**: Chosen SQLite for portability and simpler deployment for this specific challenge context.
-2.  **Heuristic vs LLM**: Chosen Heuristic for speed and predictability. In a production v2, this would be an ensemble model (Heuristic for speed + LLM for deep analysis).
-3.  **UI Density**: Chosen a dense, "Battle Station" view to maximize information on a single screen without scrolling.
+4.  **Access App**
+    Open `http://localhost:5173` in your browser.
+
+## Environment Variables (.env)
+
+Create a `.env` file in the `server` directory:
+
+```env
+PORT=3000
+DB_PATH=./chaoslog.db
+```

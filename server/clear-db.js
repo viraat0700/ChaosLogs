@@ -6,7 +6,7 @@ try {
     const info = stmt.run();
     console.log(`Deleted ${info.changes} events from the database.`);
 
-    // Optional: Reset auto-increment counter
+
     db.prepare("DELETE FROM sqlite_sequence WHERE name='events'").run();
     console.log('Reset ID counter.');
 
