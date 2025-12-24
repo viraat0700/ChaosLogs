@@ -27,6 +27,10 @@ app.get(/(.*)/, (req, res) => {
 });
 
 
+// if (process.env.NODE_ENV !== 'production') {
 app.listen(PORT, () => {
     console.log(`🚀 ChaosLog Core online on port ${PORT}`);
 });
+// }
+
+module.exports = app;

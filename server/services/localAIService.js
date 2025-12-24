@@ -1,5 +1,10 @@
 const { pipeline, env } = require('@xenova/transformers');
 
+// Configure for Vercel / serverless environments
+if (process.env.VERCEL) {
+    env.cacheDir = '/tmp';
+}
+
 
 
 class LocalAIService {
