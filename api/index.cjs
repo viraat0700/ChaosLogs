@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const eventRoutes = require('./routes/eventRoutes');
+const eventRoutes = require('./routes/eventRoutes.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(async (req, res, next) => {
     try {
-        const dbConfig = require('./config/database');
+        const dbConfig = require('./config/database.cjs');
         await dbConfig.connect();
         next();
     } catch (error) {

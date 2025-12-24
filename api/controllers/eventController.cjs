@@ -1,6 +1,6 @@
-const classifierService = require('../services/classifierService');
-const localAIService = require('../services/localAIService');
-const EventModel = require('../models/Event');
+const classifierService = require('../services/classifierService.cjs');
+const localAIService = require('../services/localAIService.cjs');
+const EventModel = require('../models/Event.cjs');
 
 class EventController {
     async ingestEvent(req, res) {
