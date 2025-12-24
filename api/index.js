@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-require('./config/database');
 const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
@@ -14,6 +13,17 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+
+app.use(async (req, res, next) => {
+    try {
+        const dbConfig = require('./config/database');
+        await dbConfig.connect();
+        next();
+    } catch (error) {
+        console.error('Database connection middleware error:', error);
+        res.status(500).json({ error: 'Database connection failed' });
+    }
+});
 
 app.use('/api', eventRoutes);
 

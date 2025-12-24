@@ -13,17 +13,24 @@ class LocalAIService {
         this.modelName = 'Xenova/mobilebert-uncased-mnli';
         this.categoryLabels = ['Maintenance', 'Logistics', 'Network', 'Security', 'General', 'Safety'];
         this.severityLabels = ['Critical', 'Medium', 'Low'];
-        this.initPromise = this.init();
+        this.initPromise = null;
     }
 
     async init() {
-        try {
-            console.log('Local AI: Loading model pipeline...');
-            this.classifier = await pipeline('zero-shot-classification', this.modelName);
-            console.log('Local AI: Model loaded successfully.');
-        } catch (error) {
-            console.error('Local AI: Failed to load model:', error);
-        }
+        if (this.initPromise) return this.initPromise;
+
+        this.initPromise = (async () => {
+            try {
+                console.log('Local AI: Loading model pipeline...');
+                this.classifier = await pipeline('zero-shot-classification', this.modelName);
+                console.log('Local AI: Model loaded successfully.');
+            } catch (error) {
+                console.error('Local AI: Failed to load model:', error);
+                this.initPromise = null; // Reset to allow retry
+            }
+        })();
+
+        return this.initPromise;
     }
 
     async analyze(text) {
