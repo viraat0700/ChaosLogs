@@ -8,7 +8,7 @@ const EventSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now }
 });
 
-const Event = mongoose.models.Event || mongoose.model('Event', EventSchema);
+const Event = mongoose.model('Event', EventSchema);
 
 class EventModel {
     async create(rawContent, category, severity, tags) {
