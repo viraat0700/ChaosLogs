@@ -6,7 +6,13 @@ class DatabaseConfig {
     }
 
     async connect() {
-        if (mongoose.connection.readyState === 1) return;
+        if (global.mongoose && global.mongoose.conn) {
+            return global.mongoose.conn;
+        }
+
+        if (!global.mongoose) {
+            global.mongoose = { conn: null, promise: null };
+        }
 
         try {
             const mongoURI = process.env.MONGODB_URI;
@@ -14,10 +20,17 @@ class DatabaseConfig {
                 console.error('❌ MONGODB_URI is not defined in environment variables');
                 return;
             }
-            await mongoose.connect(mongoURI);
+
+            if (!global.mongoose.promise) {
+                global.mongoose.promise = mongoose.connect(mongoURI).then(m => m);
+            }
+
+            global.mongoose.conn = await global.mongoose.promise;
             console.log('✅ Connected to MongoDB');
+            return global.mongoose.conn;
         } catch (error) {
             console.error('❌ MongoDB connection error:', error);
+            global.mongoose.promise = null;
         }
     }
 
