@@ -13,13 +13,13 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Install server dependencies
-COPY server/package*.json ./server/
-WORKDIR /app/server
+COPY api/package*.json ./api/
+WORKDIR /app/api
 RUN npm install --production
 # Install Transformers.js specifically if needed, likely already in package.json
 
 # Copy server code
-COPY server/ ./
+COPY api/ ./
 
 # Copy built frontend from Stage 1 to server's public folder (or specialized folder)
 # We'll need to instruct Express to serve this.
