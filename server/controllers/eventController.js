@@ -42,7 +42,7 @@ class EventController {
             const finalTags = heuristicResult.tags;
 
 
-            const eventId = EventModel.create(
+            const eventId = await EventModel.create(
                 text,
                 finalCategory,
                 finalSeverity,
@@ -69,7 +69,7 @@ class EventController {
 
     async getAllEvents(req, res) {
         try {
-            const events = EventModel.getAll();
+            const events = await EventModel.getAll();
             res.json(events);
         } catch (error) {
             console.error('Error in getAllEvents:', error);
@@ -81,7 +81,7 @@ class EventController {
 
     async getStats(req, res) {
         try {
-            const stats = EventModel.getStats();
+            const stats = await EventModel.getStats();
             res.json(stats);
         } catch (error) {
             console.error('Error in getStats:', error);

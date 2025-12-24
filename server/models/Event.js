@@ -1,44 +1,45 @@
-const dbConfig = require('../config/database');
-const db = dbConfig.getDatabase();
+const mongoose = require('mongoose');
+
+const EventSchema = new mongoose.Schema({
+    raw_content: { type: String, required: true },
+    category: { type: String },
+    severity: { type: String },
+    tags: [String],
+    timestamp: { type: Date, default: Date.now }
+});
+
+const Event = mongoose.model('Event', EventSchema);
 
 class EventModel {
-    constructor() {
-        this.insertStmt = db.prepare(
-            'INSERT INTO events (raw_content, category, severity, tags) VALUES (?, ?, ?, ?)'
-        );
-        this.getAllStmt = db.prepare(
-            'SELECT * FROM events ORDER BY timestamp DESC LIMIT 100'
-        );
-        this.getCategoryStatsStmt = db.prepare(
-            'SELECT category, COUNT(*) as count FROM events GROUP BY category'
-        );
-        this.getSeverityStatsStmt = db.prepare(
-            'SELECT severity, COUNT(*) as count FROM events GROUP BY severity'
-        );
-    }
-
-    create(rawContent, category, severity, tags) {
-        const info = this.insertStmt.run(
-            rawContent,
+    async create(rawContent, category, severity, tags) {
+        const event = new Event({
+            raw_content: rawContent,
             category,
             severity,
-            JSON.stringify(tags)
-        );
-        return info.lastInsertRowid;
+            tags
+        });
+        const savedEvent = await event.save();
+        return savedEvent._id;
     }
 
-    getAll() {
-        const events = this.getAllStmt.all();
-        return events.map(event => ({
-            ...event,
-            tags: JSON.parse(event.tags)
-        }));
+    async getAll() {
+        return await Event.find().sort({ timestamp: -1 }).limit(100);
     }
 
-    getStats() {
+    async getStats() {
+        const categories = await Event.aggregate([
+            { $group: { _id: "$category", count: { $sum: 1 } } },
+            { $project: { category: "$_id", count: 1, _id: 0 } }
+        ]);
+
+        const severities = await Event.aggregate([
+            { $group: { _id: "$severity", count: { $sum: 1 } } },
+            { $project: { severity: "$_id", count: 1, _id: 0 } }
+        ]);
+
         return {
-            categories: this.getCategoryStatsStmt.all(),
-            severities: this.getSeverityStatsStmt.all()
+            categories,
+            severities
         };
     }
 }

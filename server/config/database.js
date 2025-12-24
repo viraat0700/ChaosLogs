@@ -1,30 +1,26 @@
-const Database = require('better-sqlite3');
-const path = require('path');
+const mongoose = require('mongoose');
 
 class DatabaseConfig {
     constructor() {
-        const dbPath = process.env.DB_PATH || path.join(__dirname, '..', 'chaoslog.db');
-        this.db = new Database(dbPath, { verbose: console.log });
-        this.db.pragma('journal_mode = WAL');
-        this.initializeTables();
+        this.connect();
     }
 
-    initializeTables() {
-        const createTableSQL = `
-            CREATE TABLE IF NOT EXISTS events (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                raw_content TEXT NOT NULL,
-                category TEXT,
-                severity TEXT,
-                tags TEXT,
-                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        `;
-        this.db.exec(createTableSQL);
+    async connect() {
+        try {
+            const mongoURI = process.env.MONGODB_URI;
+            if (!mongoURI) {
+                throw new Error('MONGODB_URI is not defined in .env file');
+            }
+            await mongoose.connect(mongoURI);
+            console.log('✅ Connected to MongoDB');
+        } catch (error) {
+            console.error('❌ MongoDB connection error:', error);
+            process.exit(1);
+        }
     }
 
     getDatabase() {
-        return this.db;
+        return mongoose.connection;
     }
 }
 
