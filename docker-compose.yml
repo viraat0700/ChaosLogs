@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      # mount local data folder to container data folder for persistence
+      - ./data:/data
+    environment:
+      - DB_PATH=/data/chaoslog.db
+      - PORT=3000

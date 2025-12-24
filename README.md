@@ -18,7 +18,7 @@ This project follows **industry-standard architectural patterns**:
 - **Backend**: MVC pattern with separate layers for models, services, controllers, and routes
 - **Frontend**: Component-based architecture with services and utilities
 
-See [`ARCHITECTURE.md`](file:///Users/lalitmohan/.gemini/antigravity/scratch/maketronics_challenge/ARCHITECTURE.md) for detailed structure documentation.
+See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for detailed structure documentation.
 
 ## System Architecture
 

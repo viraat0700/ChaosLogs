@@ -10,14 +10,14 @@
 class Classifier {
     constructor() {
         this.categories = {
-            maintenance: ['motor', 'engine', 'heat', 'overheat', 'rpm', 'vibration', 'broken', 'repair', 'smoke', 'voltage', 'battery', 'power'],
+            maintenance: ['motor', 'engine', 'heat', 'overheat', 'rpm', 'vibration', 'broken', 'repair', 'smoke', 'voltage', 'battery', 'power', 'roof'],
             logistics: ['shipment', 'delay', 'vendor', 'truck', 'cargo', 'dispatch', 'arrived', 'inventory', 'stock', 'warehouse'],
-            network: ['wifi', 'connection', 'latency', 'server', 'timeout', 'offline', 'password', 'login', 'access'],
-            security: ['breach', 'camera', 'unauthorized', 'badge', 'door', 'alarm', 'theft', 'intruder']
+            network: ['wifi', 'connection', 'latency', 'server', 'timeout', 'offline', 'password', 'login', 'access', 'network', 'tower', 'signal'],
+            security: ['breach', 'camera', 'unauthorized', 'badge', 'door', 'alarm', 'theft', 'intruder', 'safety', 'accident', 'fall', 'fell', 'injury']
         };
 
         this.severityTriggers = {
-            critical: ['fire', 'smoke', 'emergency', 'danger', 'immediate', 'fail', 'down', 'crash', 'breach', 'explode', '0%', 'dead'],
+            critical: ['fire', 'smoke', 'emergency', 'danger', 'immediate', 'fail', 'down', 'crash', 'breach', 'explode', '0%', 'dead', 'fell', 'fall', 'accident', 'injury', 'death'],
             medium: ['warning', 'slow', 'delay', 'leak', 'noise', 'retry', 'unstable', 'low'],
             low: ['note', 'check', 'update', 'routine', 'info', 'test']
         };

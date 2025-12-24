@@ -3,7 +3,7 @@ const path = require('path');
 
 class DatabaseConfig {
     constructor() {
-        const dbPath = path.join(__dirname, '..', 'chaoslog.db');
+        const dbPath = process.env.DB_PATH || path.join(__dirname, '..', 'chaoslog.db');
         this.db = new Database(dbPath, { verbose: console.log });
         this.db.pragma('journal_mode = WAL');
         this.initializeTables();
