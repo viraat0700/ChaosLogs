@@ -1,12 +1,12 @@
 class ClassifierService {
     constructor() {
         this.categories = {
-            'Mechanical': ['motor', 'bearing', 'gear', 'belt', 'pump', 'vibration', 'noise', 'alignment'],
-            'Electrical': ['voltage', 'current', 'power', 'fuse', 'breaker', 'short', 'ground', 'cable', 'wire'],
-            'Safety': ['emergency', 'stop', 'hazard', 'fire', 'gate', 'smoke', 'protection', 'injury'],
-            'Network': ['connection', 'latency', 'collision', 'timeout', 'packet', 'gateway', 'switch', 'wifi'],
-            'Software': ['exception', 'error', 'crash', 'reboot', 'firmware', 'update', 'api', 'null'],
-            'Thermal': ['heat', 'temperature', 'fan', 'cooling', 'overheat', 'hot', 'cold']
+            'Mechanical': ['mechanical', 'motor', 'bearing', 'gear', 'belt', 'pump', 'vibration', 'noise', 'alignment', 'machine', 'mechanism', 'hydraulic', 'pneumatic', 'torque', 'rpm', 'wear', 'tear', 'broken', 'stuck', 'jam'],
+            'Electrical': ['electrical', 'voltage', 'current', 'power', 'fuse', 'breaker', 'short', 'ground', 'cable', 'wire', 'circuit', 'relay', 'solenoid', 'capacitor', 'resistor', 'transformer', 'outage', 'blackout', 'volts', 'amps', 'watt', 'battery', 'charge'],
+            'Safety': ['safety', 'emergency', 'stop', 'hazard', 'fire', 'gate', 'smoke', 'protection', 'injury', 'danger', 'warning', 'caution', 'accident', 'incident', 'compliance', 'regulation', 'osha', 'ppe', 'guard'],
+            'Network': ['network', 'connection', 'latency', 'collision', 'timeout', 'packet', 'gateway', 'switch', 'wifi', 'internet', 'web', 'server', 'client', 'bandwidth', 'ping', 'ip', 'address', 'mac', 'vlan', 'port', 'dns', 'dhcp', 'offline', 'online', 'lag'],
+            'Software': ['software', 'exception', 'error', 'crash', 'reboot', 'firmware', 'update', 'api', 'null', 'bug', 'glitch', 'patch', 'release', 'version', 'code', 'script', 'program', 'app', 'application', 'database', 'ui', 'gui', 'backend', 'frontend'],
+            'Thermal': ['thermal', 'heat', 'temperature', 'fan', 'cooling', 'overheat', 'hot', 'cold', 'freeze', 'frozen', 'melt', 'melting', 'boil', 'boiling', 'celsius', 'fahrenheit', 'ambient', 'cooler', 'heater']
         };
 
         this.severities = {
